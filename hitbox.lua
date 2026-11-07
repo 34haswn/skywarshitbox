@@ -29,11 +29,11 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
                         if hitboxEnabled then
                             root.Size = Vector3.new(5, 4, 4)
                             root.CanCollide = false
-                            root.Transparency = 0.5
+                            root.Transparency = 1
                         else
                             root.Size = Vector3.new(2, 2, 1)
                             root.CanCollide = true
-                            root.Transparency = 1
+                            root.Transparency = 0.5
                         end
                     end
                 end
