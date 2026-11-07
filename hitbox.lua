@@ -5,23 +5,21 @@ local StarterGui = game:GetService("StarterGui")
 local player = Players.LocalPlayer
 local hitboxEnabled = false
 
-local function showNotification(title, text, duration)
-    pcall(function()
-        StarterGui:SetCore("SendNotification", {
-            Title = title;
-            Text = text;
-            Duration = duration or 2;
-        })
-    end)
-end
+-- Inject edildiğinde çalışan başlangıç bildirimi
+pcall(function()
+    StarterGui:SetCore("SendNotification", {
+        Title = "HCK Hitbox";
+        Text = "Script Başarıyla Yüklendi! (F1)",
+        Duration = 3;
+    })
+end)
 
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
     if gameProcessed then return end
-    
     if input.KeyCode == Enum.KeyCode.F1 then
         hitboxEnabled = not hitboxEnabled
 
-        -- Hitbox boyutlarını ve durumunu güncelle
+        -- Hitboxları düzenle
         for _, p in pairs(Players:GetPlayers()) do
             if p ~= player then
                 local char = p.Character
@@ -42,11 +40,21 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
             end
         end
 
-        -- Sağ altta çıkacak bildirimler
-        if hitboxEnabled then
-            showNotification("HCK Hitbox", "Hitbox Açıldı!", 2)
-        else
-            showNotification("HCK Hitbox", "Hitbox Kapandı!", 2)
-        end
+        -- Açıldı / Kapandı bildirimi
+        pcall(function()
+            if hitboxEnabled then
+                StarterGui:SetCore("SendNotification", {
+                    Title = "HCK Hitbox";
+                    Text = "Hitbox Açıldı!",
+                    Duration = 2;
+                })
+            else
+                StarterGui:SetCore("SendNotification", {
+                    Title = "HCK Hitbox";
+                    Text = "Hitbox Kapandı!",
+                    Duration = 2;
+                })
+            end
+        end)
     end
 end)
