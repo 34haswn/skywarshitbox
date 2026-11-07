@@ -26,7 +26,7 @@ for _, p in pairs(Players:GetPlayers()) do
             if root then
                 root.Size = Vector3.new(5, 4, 4)
                 root.CanCollide = false
-                root.Transparency = 1
+                root.Transparency = 0.5
             end
         end
     end
