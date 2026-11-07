@@ -1,15 +1,28 @@
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
+local StarterGui = game:GetService("StarterGui")
 
 local player = Players.LocalPlayer
 local hitboxEnabled = false
 
+-- Roblox bildirim fonksiyonu (Sağ altta bildirim çıkarır)
+local function showNotification(title, text, duration)
+    pcall(function()
+        StarterGui:SetCore("SendNotification", {
+            Title = title;
+            Text = text;
+            Duration = duration or 2;
+        })
+    end)
+end
+
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
     if gameProcessed then return end
+    
     if input.KeyCode == Enum.KeyCode.F1 then
         hitboxEnabled = not hitboxEnabled
 
-        -- Hitboxları düzenle (hiçbir hata çıkmaz)
+        -- Hitbox boyutlarını ve durumunu güncelle
         for _, p in pairs(Players:GetPlayers()) do
             if p ~= player then
                 local char = p.Character
@@ -19,34 +32,22 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
                         if hitboxEnabled then
                             root.Size = Vector3.new(5, 5, 5)
                             root.CanCollide = false
-                            root.Transparency = 1
+                            root.Transparency = 1 -- Hitbox açıkken tamamen GÖRÜNMEZ yapar
                         else
                             root.Size = Vector3.new(2, 2, 1)
                             root.CanCollide = true
-                            root.Transparency = 1
+                            root.Transparency = 1 -- Hitbox kapalıyken orijinal görünmezlik
                         end
                     end
                 end
             end
         end
 
-        -- GUI hatasız şekilde güncellenir (hiçbir warn veya error olmaz)
-        local playerGui = player:FindFirstChild("PlayerGui")
-        if playerGui then
-            local screen = playerGui:FindFirstChild("ScreenGui")
-            if screen then
-                local frame = screen:FindFirstChild("PromoFrame")
-                if frame then
-                    local promoLabel = frame:FindFirstChild("Advertising")
-                    if promoLabel then
-                        if hitboxEnabled then
-                            promoLabel.Text = "Join the group in the desc for codes!"
-                        else
-                            promoLabel.Text = "Kodlar için iniş sırasında grupye katıl!"
-                        end
-                    end
-                end
-            end
+        -- Sağ altta çıkacak bildirimler
+        if hitboxEnabled then
+            showNotification("HCK Hitbox", "Hitbox Açıldı!", 2)
+        else
+            showNotification("HCK Hitbox", "Hitbox Kapandı!", 2)
         end
     end
 end)
