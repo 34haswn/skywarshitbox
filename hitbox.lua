@@ -19,7 +19,7 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
     if input.KeyCode == Enum.KeyCode.F1 then
         hitboxEnabled = not hitboxEnabled
 
-        -- Hitboxları düzenle
+        -- Hitboxları ve görünürlüğü düzenle
         for _, p in pairs(Players:GetPlayers()) do
             if p ~= player then
                 local char = p.Character
@@ -29,11 +29,30 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
                         if hitboxEnabled then
                             root.Size = Vector3.new(5, 4, 4)
                             root.CanCollide = false
-                            root.Transparency = 0.5
+                            root.Transparency = 0.8 -- Kendi orijinal görüntüsünü bozmasın diye
+
+                            -- Adamın üzerinde net görünmesi için Highlight (Parlama) efekti ekle
+                            local highlight = char:FindFirstChild("HCK_Highlight")
+                            if not highlight then
+                                highlight = Instance.new("Highlight")
+                                highlight.Name = "HCK_Highlight"
+                                highlight.Adornee = char
+                                highlight.FillColor = Color3.fromRGB(255, 0, 0) -- İç renk (Kırmızı)
+                                highlight.FillTransparency = 0.5
+                                highlight.OutlineColor = Color3.fromRGB(255, 255, 255) -- Çerçeve rengi (Beyaz)
+                                highlight.OutlineTransparency = 0
+                                highlight.Parent = char
+                            end
                         else
                             root.Size = Vector3.new(2, 2, 1)
                             root.CanCollide = true
-                            root.Transparency = 0.5
+                            root.Transparency = 1
+
+                            -- Hitbox kapandığında parlamayı sil
+                            local highlight = char:FindFirstChild("HCK_Highlight")
+                            if highlight then
+                                highlight:Destroy()
+                            end
                         end
                     end
                 end
