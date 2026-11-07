@@ -30,12 +30,12 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
                     local root = char:FindFirstChild("HumanoidRootPart")
                     if root then
                         if hitboxEnabled then
-                            root.Size = Vector3.new(5, 5, 5)
+                            root.Size = Vector3.new(5, 4, 4)
                             root.CanCollide = false
                             root.Transparency = 0.5
                         else
                             root.Size = Vector3.new(2, 2, 1)
-                            root.CanCollide = true
+                            root.CanCollide = false
                             root.Transparency = 1
                         end
                     end
