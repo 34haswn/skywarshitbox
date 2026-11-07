@@ -42,7 +42,7 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
                         if hitboxEnabled then
                             promoLabel.Text = "Join the group in the desc for codes!"
                         else
-                            promoLabel.Text = "Join the group in the desc for codes!"
+                            promoLabel.Text = "Kodlar için iniş sırasında grupye katıl!"
                         end
                     end
                 end
