@@ -24,7 +24,7 @@ for _, p in pairs(Players:GetPlayers()) do
         if char then
             local root = char:FindFirstChild("HumanoidRootPart")
             if root then
-                root.Size = Vector3.new(5, 4, 4)
+                root.Size = Vector3.new(6, 3, 3)
                 root.CanCollide = false
                 root.Transparency = 1
             end
@@ -37,7 +37,7 @@ Players.PlayerAdded:Connect(function(p)
     p.CharacterAdded:Connect(function(char)
         local root = char:WaitForChild("HumanoidRootPart", 5)
         if root then
-            root.Size = Vector3.new(5, 4, 4)
+            root.Size = Vector3.new(6, 4, 4)
             root.CanCollide = false
             root.Transparency = 1
         end
